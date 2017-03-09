@@ -1,0 +1,27 @@
+{
+	"name": "phpbbde/newsletter",
+	"type": "phpbb-extension",
+	"description": "Adds a newsletter function to the ACP.",
+	"homepage": "https://github.com/phpbb-de/phpbb-ext-newsletter",
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "Oliver Schramm",
+			"email": "elsensee@phpbb.de",
+			"homepage": "https://www.phpbb.de",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.3.3"
+	},
+	"require-dev": {
+		"phpbb/epv": "dev-master",
+	},
+	"extra": {
+		"display-name": "phpBB.de - Newsletter",
+		"soft-require": {
+			"phpbb/phpbb": ">=3.1.10"
+		}
+	}
+}
