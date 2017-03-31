@@ -1,0 +1,11 @@
+services:
+    phpbbde.newsletter.listener:
+        class: phpbbde\newsletter\event\listener
+        arguments:
+            - '@request'
+            - '@user'
+            - '%core.php_ext%'
+            - '%core.root_path%'
+            - '%tables.users%'
+        tags:
+            - { name: event.listener }

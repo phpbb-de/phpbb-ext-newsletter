@@ -25,17 +25,14 @@ class listener implements EventSubscriberInterface
 {
 	const ID_NEWSLETTER = 72;
 
-	/** @var config */
-	protected $config;
+	/** @var string */
+	protected $php_ext;
 
 	/** @var string */
 	protected $phpbb_root_path;
 
 	/** @var request_interface */
 	protected $request;
-
-	/** @var template */
-	protected $template;
 
 	/** @var user */
 	protected $user;
@@ -46,16 +43,17 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Constructor
 	 *
-	 * @param config		$config
-	 * @param template		$template
-	 * @param user			$user
+	 * @param request_interface		$request
+	 * @param user					$user
+	 * @param string				$php_ext
+	 * @param string				$phpbb_root_path
+	 * @param string				$users_table
 	 */
-	public function __construct(config $config, request_interface $request, template $template, user $user, $phpbb_root_path, $users_table)
+	public function __construct(request_interface $request, user $user, $php_ext, $phpbb_root_path, $users_table)
 	{
-		$this->config = $config;
+		$this->php_ext = $php_ext;
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->request = $request;
-		$this->template = $template;
 		$this->user = $user;
 		$this->users_table = $users_table;
 
@@ -66,7 +64,6 @@ class listener implements EventSubscriberInterface
 	 * Assign functions defined in this class to event listeners in the core
 	 *
 	 * @return array
-	 * @static
 	 * @access public
 	 */
 	static public function getSubscribedEvents()
@@ -75,14 +72,14 @@ class listener implements EventSubscriberInterface
 			'core.acp_email_modify_sql'		=> 'get_newsletter_users',
 			'core.acp_email_send_before'	=> array(
 				'modify_email_template',
-				'post_newsletter_archive', // Workaround since there is no _after event
+				'post_newsletter_archive', // Workaround for event since there is no _after event
 			),
 			'core.acp_email_display'		=> 'modify_acp_email_template',
 		);
 	}
 
 	/**
-	 * Adds settings for this extension to the ACP
+	 * Modify SQL to get users which enabled newsletter
 	 *
 	 * @param \phpbb\event\data $event
 	 * @access public
@@ -108,7 +105,7 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Adds settings for this extension to the ACP
+	 * Modify template data for mass email sending.
 	 *
 	 * @param \phpbb\event\data $event
 	 * @access public
@@ -121,7 +118,7 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Adds settings for this extension to the ACP
+	 * Modify email template data.
 	 *
 	 * @param \phpbb\event\data $event
 	 * @access public
@@ -135,7 +132,10 @@ class listener implements EventSubscriberInterface
 
 		$event['email_template'] = '@phpbbde_newsletter/admin_send_newsletter';
 
-		// TODO: modify $template_data
+		$event['template_data'] = array_merge($event['template_data'], [
+			'U_REMIND'		=> generate_board_url() . "/ucp.{$this->php_ext}?mode=sendpassword",
+			'U_IMPRINT'		=> generate_board_url(TRUE) . "/go/impressum",
+		]);
 	}
 
 	/**
@@ -151,7 +151,7 @@ class listener implements EventSubscriberInterface
 			return;
 		}
 
-		include_once($this->phpbb_root_path . 'includes/functions_posting.php');
+		include_once($this->phpbb_root_path . 'includes/functions_posting.' . $this->php_ext);
 
 		$subject = $event['subject'];
 		$message = $this->request->variable('message', '', true);
@@ -209,36 +209,4 @@ class listener implements EventSubscriberInterface
 			// TODO: log with $group_name
 		}
 	}
-
-	/**
-	 * Adds settings for this extension to the ACP
-	 *
-	 * @param \phpbb\event\data $event
-	 * @return null
-	 * @access public
-	 */
-	public function acp_add_config($event)
-	{
-		/*if ($event['mode'] !== 'post')
-		{
-			return;
-		}
-
-		$own_vars = array(
-			'extimgaslink_config'	=> array(
-				'lang' => 'EXTIMGASLINK_CONFIG',
-				'validate' => 'int:0',
-				'type' => 'select',
-				'function' => array($this->helper, 'extimgaslink_config_select'),
-				'params' => array('{CONFIG_VALUE}'),
-				'explain' => true,
-			),
-		);
-
-		$vars = $event['display_vars'];
-		$vars['vars'] = helper::array_insert($vars['vars'], 'allow_post_links', $own_vars);
-		$event['display_vars'] = $vars;*/
-	}
-
-
 }
