@@ -2,6 +2,7 @@ services:
     phpbbde.newsletter.listener:
         class: phpbbde\newsletter\event\listener
         arguments:
+            - '@config'
             - '@request'
             - '@user'
             - '%core.php_ext%'

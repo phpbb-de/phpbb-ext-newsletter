@@ -1,0 +1,7 @@
+<dl>
+	<dt><label for="newsletter1">{{ lang('NEWSLETTER') }}{{ lang('COLON') }}</label></dt>
+	<dd>
+		<label for="newsletter1"><input type="radio" name="newsletter" id="newsletter1" value="1"{% if NEWSLETTER %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+		<label for="newsletter0"><input type="radio" name="newsletter" id="newsletter0" value="0"{% if not NEWSLETTER %} checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+	</dd>
+</dl>

@@ -1,8 +1,8 @@
 <?php
 /**
  *
- * @package phpBB.de External Images as link
- * @copyright (c) 2015-2016 phpBB.de
+ * @package phpBB.de Newsletter
+ * @copyright (c) 2017 phpBB.de
  * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
  *
  */
@@ -14,7 +14,6 @@ namespace phpbbde\newsletter\event;
 */
 use phpbb\config\config;
 use phpbb\request\request_interface;
-use phpbb\template\template;
 use phpbb\user;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -24,6 +23,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class listener implements EventSubscriberInterface
 {
 	const ID_NEWSLETTER = 72;
+
+	/** @var config */
+	protected $config;
 
 	/** @var string */
 	protected $php_ext;
@@ -43,14 +45,16 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Constructor
 	 *
+	 * @param config				$config
 	 * @param request_interface		$request
 	 * @param user					$user
 	 * @param string				$php_ext
 	 * @param string				$phpbb_root_path
 	 * @param string				$users_table
 	 */
-	public function __construct(request_interface $request, user $user, $php_ext, $phpbb_root_path, $users_table)
+	public function __construct(config $config, request_interface $request, user $user, $php_ext, $phpbb_root_path, $users_table)
 	{
+		$this->config = $config;
 		$this->php_ext = $php_ext;
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->request = $request;
@@ -69,13 +73,26 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
+			'core.acp_email_display'		=> 'modify_acp_email_template',
 			'core.acp_email_modify_sql'		=> 'get_newsletter_users',
+			//'core.acp_email_send_after'		=> 'post_newsletter_archive',
 			'core.acp_email_send_before'	=> array(
 				'modify_email_template',
 				'post_newsletter_archive', // Workaround for event since there is no _after event
 			),
-			'core.acp_email_display'		=> 'modify_acp_email_template',
+			'core.permissions'				=> 'add_permissions',
 		);
+	}
+
+	/**
+	 * Add the extension's permissions to phpBB
+	 *
+	 * @param \phpbb\event\data $event
+	 * @access public
+	 */
+	public function add_permissions($event)
+	{
+		// TODO
 	}
 
 	/**
@@ -134,7 +151,7 @@ class listener implements EventSubscriberInterface
 
 		$event['template_data'] = array_merge($event['template_data'], [
 			'U_REMIND'		=> generate_board_url() . "/ucp.{$this->php_ext}?mode=sendpassword",
-			'U_IMPRINT'		=> generate_board_url(TRUE) . "/go/impressum",
+			'U_IMPRINT'		=> generate_board_url(true) . "/go/impressum",
 		]);
 	}
 
@@ -190,7 +207,7 @@ class listener implements EventSubscriberInterface
 		submit_post('post', $subject, $this->user->data['username'], POST_NORMAL, $poll_data, $post_data);
 
 		$event['generate_log_entry'] = false;
-		if (!empty($event['usernames']))
+		/*if (!empty($event['usernames']))
 		{
 			// TODO: log with implode(', ', utf8_normalize_nfc($usernames));
 		}
@@ -207,6 +224,6 @@ class listener implements EventSubscriberInterface
 			}
 
 			// TODO: log with $group_name
-		}
+		}*/
 	}
 }
