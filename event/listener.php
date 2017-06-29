@@ -13,7 +13,9 @@ namespace phpbbde\newsletter\event;
 * @ignore
 */
 use phpbb\config\config;
+use phpbb\log\log_interface;
 use phpbb\request\request_interface;
+use phpbb\template\template;
 use phpbb\user;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -22,7 +24,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-	const ID_NEWSLETTER = 72;
+	const ID_NEWSLETTER = 72; // TODO: make ACP setting to change the forum
 
 	/** @var config */
 	protected $config;
@@ -30,11 +32,17 @@ class listener implements EventSubscriberInterface
 	/** @var string */
 	protected $php_ext;
 
+	/** @var log_interface */
+	protected $phpbb_log;
+
 	/** @var string */
 	protected $phpbb_root_path;
 
 	/** @var request_interface */
 	protected $request;
+
+	/** @var template */
+	protected $template;
 
 	/** @var user */
 	protected $user;
@@ -46,18 +54,22 @@ class listener implements EventSubscriberInterface
 	 * Constructor
 	 *
 	 * @param config				$config
+	 * @param log_interface			$phpbb_log
 	 * @param request_interface		$request
+	 * @param template				$template
 	 * @param user					$user
 	 * @param string				$php_ext
 	 * @param string				$phpbb_root_path
 	 * @param string				$users_table
 	 */
-	public function __construct(config $config, request_interface $request, user $user, $php_ext, $phpbb_root_path, $users_table)
+	public function __construct(config $config, log_interface $phpbb_log, request_interface $request, template $template, user $user, $php_ext, $phpbb_root_path, $users_table)
 	{
 		$this->config = $config;
 		$this->php_ext = $php_ext;
+		$this->phpbb_log = $phpbb_log;
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->request = $request;
+		$this->template = $template;
 		$this->user = $user;
 		$this->users_table = $users_table;
 
@@ -73,14 +85,16 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.acp_email_display'		=> 'modify_acp_email_template',
-			'core.acp_email_modify_sql'		=> 'get_newsletter_users',
-			//'core.acp_email_send_after'		=> 'post_newsletter_archive',
-			'core.acp_email_send_before'	=> array(
-				'modify_email_template',
-				'post_newsletter_archive', // Workaround for event since there is no _after event
+			'core.acp_email_display'				=> 'modify_acp_email_template',
+			'core.acp_email_modify_sql'				=> 'get_newsletter_users',
+			//'core.acp_email_send_after'			=> 'post_newsletter_archive',
+			'core.acp_email_send_before'			=> array(
+				array('modify_email_template', 0),
+				array('post_newsletter_archive', 50), // Workaround for event since there is no _after event
 			),
-			'core.permissions'				=> 'add_permissions',
+			'core.ucp_prefs_modify_common'			=> 'modify_ucp_prefs',
+			'core.ucp_prefs_personal_update_data'	=> 'update_ucp_newsletter',
+			'core.permissions'						=> 'add_permissions',
 		);
 	}
 
@@ -151,8 +165,26 @@ class listener implements EventSubscriberInterface
 
 		$event['template_data'] = array_merge($event['template_data'], [
 			'U_REMIND'		=> generate_board_url() . "/ucp.{$this->php_ext}?mode=sendpassword",
-			'U_IMPRINT'		=> generate_board_url(true) . "/go/impressum",
+			'U_IMPRINT'		=> generate_board_url(true) . "/go/impressum", // TODO: Make this changeable
 		]);
+	}
+
+	/**
+	 * Modify the UCP template to display newsletter settings
+	 *
+	 * @param \phpbb\event\data $event
+	 * @access public
+	 */
+	public function modify_ucp_prefs($event)
+	{
+		if ($event['mode'] !== 'personal')
+		{
+			return;
+		}
+
+		$this->template->assign_vars(array(
+			'NEWSLETTER'	=> $this->user->data['user_allow_newsletter'],
+		));
 	}
 
 	/**
@@ -207,9 +239,9 @@ class listener implements EventSubscriberInterface
 		submit_post('post', $subject, $this->user->data['username'], POST_NORMAL, $poll_data, $post_data);
 
 		$event['generate_log_entry'] = false;
-		/*if (!empty($event['usernames']))
+		if (!empty($event['usernames']))
 		{
-			// TODO: log with implode(', ', utf8_normalize_nfc($usernames));
+			$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_NEWSLETTER', false, array(implode(', ', utf8_normalize_nfc($event['usernames']))));
 		}
 		else
 		{
@@ -223,7 +255,20 @@ class listener implements EventSubscriberInterface
 				$group_name = $this->user->lang['ALL_USERS'];
 			}
 
-			// TODO: log with $group_name
-		}*/
+			$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_NEWSLETTER', false, array($group_name));
+		}
+	}
+
+	/**
+	 * Update the user's settings for the newsletter
+	 *
+	 * @param \phpbb\event\data $event
+	 * @access public
+	 */
+	public function update_ucp_newsletter($event)
+	{
+		$event['sql_ary'] += array(
+			'user_allow_newsletter'		=> $this->request->variable('newsletter', (bool) $this->user->data['user_allow_newsletter']),
+		);
 	}
 }

@@ -1,0 +1,13 @@
+
+You can find information on how to unsubscribe at the end
+-----------------------------------------------------------------
+
+{MESSAGE}
+
+-----------
+You receive this newsletter, because you signed up at phpBB.de and enabled the option „Subscribe to newsletter“. To unsubscribe, simply login at phpBB.de and disable this option. (If you forgot your password you can request a new on on this page: {U_REMIND})
+
+Verantwortlich für den Inhalt:
+phpBB Deutschland e. V.; c/o Markus Rehm; Ricarda-Huch-Weg 20; 41469 Neuss
+Registergericht: Amtsgericht Stuttgart (VR 720663)
+{U_IMPRINT}

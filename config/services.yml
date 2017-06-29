@@ -3,7 +3,9 @@ services:
         class: phpbbde\newsletter\event\listener
         arguments:
             - '@config'
+            - '@log'
             - '@request'
+            - '@template'
             - '@user'
             - '%core.php_ext%'
             - '%core.root_path%'
