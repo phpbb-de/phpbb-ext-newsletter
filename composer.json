@@ -16,6 +16,9 @@
 	"require": {
 		"php": ">=5.3.3"
 	},
+	"require-dev": {
+ 		"phpbb/translation-validator": "1.3.*"
+ 	},
 	"extra": {
 		"display-name": "phpBB.de - Newsletter",
 		"soft-require": {
