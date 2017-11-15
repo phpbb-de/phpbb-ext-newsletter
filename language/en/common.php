@@ -23,7 +23,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'NEWSLETTER'			=> 'Newsletter',
-	'NEWSLETTER_EXPLAIN'	=> 'You will receive the frequent newsletter when this is activated.',
+	'NEWSLETTER_EXPLAIN'	=> 'When this is activated you will receive the newsletter frequently.',
 
-	'SEND_NEWSLETTER'		=> 'Sent newsletter',
+	'SEND_NEWSLETTER'		=> 'Send newsletter',
 ));
