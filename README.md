@@ -25,7 +25,7 @@ Version: 1.0.0
 
 We use automated unit tests to prevent regressions. Check out our travis build below:
 
-master: [![Build Status](https://travis-ci.org/phpbb-de/phpbb-ext-newsletter.png?branch=master)](http://travis-ci.org/phpbb-de/phpbb-ext-ewsletter)
+master: [![Build Status](https://travis-ci.org/phpbb-de/phpbb-ext-newsletter.png?branch=master)](http://travis-ci.org/phpbb-de/phpbb-ext-newsletter)
 
 ## License
 
