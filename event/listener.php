@@ -73,7 +73,7 @@ class listener implements EventSubscriberInterface
 		$this->user = $user;
 		$this->users_table = $users_table;
 
-		//$this->user->add_lang_ext('phpbbde/externalimgaslink', 'extimgaslink');
+		$this->user->add_lang_ext('phpbbde/newsletter', 'common');
 	}
 
 	/**
