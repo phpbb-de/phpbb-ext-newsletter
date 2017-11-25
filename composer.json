@@ -4,7 +4,7 @@
 	"description": "Adds a newsletter function to the ACP.",
 	"homepage": "https://github.com/phpbb-de/phpbb-ext-newsletter",
 	"license": "GPL-2.0",
-	"version": "0.3.0",
+	"version": "1.0.0",
 	"authors": [
 		{
 			"name": "Oliver Schramm",
