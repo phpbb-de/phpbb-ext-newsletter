@@ -1,13 +1,11 @@
-# phpBB 3.1/3.2 Extension - phpBB.de Newsletter
+# phpBB 3.2/3.3 Extension - phpBB.de Newsletter
 
-Adds a newsletter function to the board. Users can (un)subscribe to it from the UCP and unsubscribe via a link in every email.
-The newsletters are sent from the ACP.
+Adds a newsletter function to the board. Users can (un)subscribe to it from the UCP and unsubscribe via
+a link in every email. The newsletters are sent from the ACP.
 
 Author: Oliver Schramm
 
 URL: https://www.phpbb.de
-
-Version: 1.0.0
 
 ## Install instructions:
 1. Download the extension

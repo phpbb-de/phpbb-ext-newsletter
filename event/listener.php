@@ -38,6 +38,9 @@ class listener implements EventSubscriberInterface
 	/** @var string */
 	protected $phpbb_root_path;
 
+	/* @var \phpbb\language\language */
+	protected $language;
+
 	/** @var request_interface */
 	protected $request;
 
@@ -55,6 +58,7 @@ class listener implements EventSubscriberInterface
 	 *
 	 * @param config				$config
 	 * @param log_interface			$phpbb_log
+	 * @param \phpbb\language\language	$language
 	 * @param request_interface		$request
 	 * @param template				$template
 	 * @param user					$user
@@ -62,18 +66,26 @@ class listener implements EventSubscriberInterface
 	 * @param string				$phpbb_root_path
 	 * @param string				$users_table
 	 */
-	public function __construct(config $config, log_interface $phpbb_log, request_interface $request, template $template, user $user, $php_ext, $phpbb_root_path, $users_table)
+	public function __construct(
+		\phpbb\config\config $config,
+		log_interface $phpbb_log,
+		\phpbb\language\language $language,
+		\phpbb\request\request $request,
+		\phpbb\template\template $template,
+		\phpbb\user $user,
+		$php_ext,
+		$phpbb_root_path,
+		$users_table)
 	{
 		$this->config = $config;
 		$this->php_ext = $php_ext;
 		$this->phpbb_log = $phpbb_log;
 		$this->phpbb_root_path = $phpbb_root_path;
+		$this->language = $language;
 		$this->request = $request;
 		$this->template = $template;
 		$this->user = $user;
 		$this->users_table = $users_table;
-
-		$this->user->add_lang_ext('phpbbde/newsletter', 'common');
 	}
 
 	/**
@@ -195,6 +207,8 @@ class listener implements EventSubscriberInterface
 	 */
 	public function post_newsletter_archive($event)
 	{
+		$this->language->add_lang('common' , 'phpbbde/newsletter');
+
 		if (!$this->request->is_set_post('newsletter'))
 		{
 			return;
@@ -252,7 +266,7 @@ class listener implements EventSubscriberInterface
 			else
 			{
 				// Not great but the logging routine doesn't cope well with localising on the fly
-				$group_name = $this->user->lang['ALL_USERS'];
+				$group_name = $this->language->lang('ALL_USERS');
 			}
 
 			$this->phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_NEWSLETTER', false, array($group_name));
