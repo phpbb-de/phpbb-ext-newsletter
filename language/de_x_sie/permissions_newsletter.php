@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* Newsletter [English]
+* Newsletter [German (Formal Honorifics)]
 *
 * @package language
 * @copyright (c) 2020 phpBB.de
@@ -22,8 +22,5 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'ACP_NEWSLETTER_TITLE'		=> 'Newsletter',
-	'ACP_NEWSLETTER_SETTINGS'	=> 'Newsletter settings',
-
-	'ACP_NEWSLETTER_LOG_ENTRY'	=> 'Newsletter sent',
+	'ACL_A_NEWSLETTER'		=> 'Kann „Newsletter“ versenden',
 ));

@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* Newsletter [German (Casual Honorifics)]
+* Newsletter [English]
 *
 * @package language
 * @copyright (c) 2020 phpBB.de
