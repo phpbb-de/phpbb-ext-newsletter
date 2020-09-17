@@ -221,10 +221,10 @@ class listener implements EventSubscriberInterface
 		$bbcode_uid = $bbcode_bitfield = $flags = '';
 
 		generate_text_for_storage($message, $bbcode_uid, $bbcode_bitfield, $flags, true, true, true);
-
+		$forum_id = $this->config['phpbbde_newsletter_archive_forum'];
 		$poll_data = array();
 		$post_data = array(
-			'forum_id'		=> $this->config['phpbbde_newsletter_archive_forum'],
+			'forum_id'		=> $forum_id,
 			'topic_id'		=> 0,
 			'icon_id'		=> false,
 

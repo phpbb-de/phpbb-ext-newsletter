@@ -63,9 +63,11 @@ class newsletter_module
 
 				// Build an array of all available forum ids
 				$sql = 'SELECT forum_id
-				FROM ' . FORUMS_TABLE ;
+				FROM ' . FORUMS_TABLE . '
+				WHERE forum_type = 1 ';
 				$result = $this->db->sql_query($sql);
-				$forum_ids[] = $result;
+				$rows = $this->db->sql_fetchrowset($result);
+				$forum_ids = array_column($rows, 'forum_id');
 				$this->db->sql_freeresult($result);
 
 				if ($this->request->is_set_post('submit'))
@@ -75,7 +77,8 @@ class newsletter_module
 						$error = $this->language->lang('FORM_INVALID');
 					}
 
-					if (empty($error) && $this->request->is_set_post('submit') && in_array($this->request->variable('phpbbde_newsletter_archive_forum', 0), $forum_ids))
+					$needle = $this->request->variable('phpbbde_newsletter_archive_forum', 0);
+					if (empty($error) && $this->request->is_set_post('submit') && in_array($needle, $forum_ids))
 					{
 						$this->config->set('phpbbde_newsletter_archive_forum', $this->request->variable('phpbbde_newsletter_archive_forum', 0));
 						trigger_error($this->language->lang('ACP_NEWSLETTER_SETTINGS_UPDATED') . adm_back_link($this->u_action));
