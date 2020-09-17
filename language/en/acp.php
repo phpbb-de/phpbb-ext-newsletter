@@ -29,4 +29,7 @@ $lang = array_merge($lang, array(
 
 	'ACP_NEWSLETTER_ARCHIVE_FORUM_ID'			=> 'Newsletter archive forum',
 	'ACP_NEWSLETTER_ARCHIVE_FORUM_ID_EXPLAIN'	=> 'Define the forum-id, in which the newsletter should be posted. If you input ”0“ the function is disabled.',
+
+	'ACP_NEWSLETTER_SETTINGS_UPDATED'		=> 'Newsletter settings were updated.',
+	'ACP_NEWSLETTER_SETTINGS_NOT_UPDATED'	=> 'Newsletter settings were not updated. No valid forum id.',
 ));

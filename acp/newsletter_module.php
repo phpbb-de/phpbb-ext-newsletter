@@ -78,11 +78,11 @@ class newsletter_module
 					if (empty($error) && $this->request->is_set_post('submit') && in_array($this->request->variable('phpbbde_newsletter_archive_forum', 0), $forum_ids))
 					{
 						$this->config->set('phpbbde_newsletter_archive_forum', $this->request->variable('phpbbde_newsletter_archive_forum', 0));
-						trigger_error($this->language->lang('ACP_NEWSLETTER_UPDATED') . adm_back_link($this->u_action));
+						trigger_error($this->language->lang('ACP_NEWSLETTER_SETTINGS_UPDATED') . adm_back_link($this->u_action));
 					}
 					else
 					{
-						trigger_error($this->language->lang('ACP_NEWSLETTER_NOT_UPDATED') . adm_back_link($this->u_action), E_USER_WARNING );
+						trigger_error($this->language->lang('ACP_NEWSLETTER_SETTINGS_NOT_UPDATED') . adm_back_link($this->u_action), E_USER_WARNING );
 					}
 				}
 

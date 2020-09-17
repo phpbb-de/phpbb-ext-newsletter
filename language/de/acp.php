@@ -29,4 +29,7 @@ $lang = array_merge($lang, array(
 
 	'ACP_NEWSLETTER_ARCHIVE_FORUM_ID'			=> 'Newsletter Archiv-Forum',
 	'ACP_NEWSLETTER_ARCHIVE_FORUM_ID_EXPLAIN'	=> 'Definiere die Foren-ID, in die der Newsletter abgelegt werden soll. Die Eingabe von „0“ deaktiviert diese Funktion.',
+
+	'ACP_NEWSLETTER_SETTINGS_UPDATED'		=> 'Newsletter Einstellungen wurden aktualisiert.',
+	'ACP_NEWSLETTER_SETTINGS_NOT_UPDATED'	=> 'Newsletter Einstellungen wurden aktualisiert. Keine gültige Foren-ID.',
 ));

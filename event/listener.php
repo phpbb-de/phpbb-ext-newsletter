@@ -153,6 +153,8 @@ class listener implements EventSubscriberInterface
 	 */
 	public function modify_acp_email_template($event)
 	{
+		$this->language->add_lang('common' , 'phpbbde/newsletter');
+
 		$event['template_data'] += array(
 			'S_SEND_NEWSLETTER'	=> $this->request->is_set_post('newsletter'),
 		);
@@ -192,6 +194,8 @@ class listener implements EventSubscriberInterface
 			return;
 		}
 
+		$this->language->add_lang('common' , 'phpbbde/newsletter');
+
 		$this->template->assign_vars(array(
 			'NEWSLETTER'	=> $this->user->data['user_allow_newsletter'],
 		));
@@ -205,8 +209,6 @@ class listener implements EventSubscriberInterface
 	 */
 	public function post_newsletter_archive($event)
 	{
-		$this->language->add_lang('common' , 'phpbbde/newsletter');
-
 		if (!$this->request->is_set_post('newsletter'))
 		{
 			return;

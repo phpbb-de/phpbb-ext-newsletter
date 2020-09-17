@@ -21,7 +21,7 @@ class newsletter_info
 				'settings'	=> array(
 						'title' => 'ACP_NEWSLETTER_SETTINGS',
 						'auth' => 'ext_phpbbde/newsletter && acl_a_newsletter',
-						'cat' => array('ACP_IP_ANONYM_TITLE')
+						'cat' => array('ACP_NEWSLETTER_TITLE')
 					),
 			),
 		);
