@@ -32,4 +32,5 @@ $lang = array_merge($lang, array(
 
 	'ACP_NEWSLETTER_SETTINGS_UPDATED'		=> 'Newsletter settings were updated.',
 	'ACP_NEWSLETTER_SETTINGS_NOT_UPDATED'	=> 'Newsletter settings were not updated. No valid forum id.',
+	'ACP_NEWSLETTER_SETTINGS_ARCHIVE_DISABLED'	=> 'Newsletter settings were updated. Archive forum will not be used.'
 ));

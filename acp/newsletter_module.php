@@ -77,11 +77,17 @@ class newsletter_module
 						$error = $this->language->lang('FORM_INVALID');
 					}
 
-					$needle = $this->request->variable('phpbbde_newsletter_archive_forum', 0);
-					if (empty($error) && $this->request->is_set_post('submit') && in_array($needle, $forum_ids))
+					$forum_id_user_input = (int) $this->request->variable('phpbbde_newsletter_archive_forum', 0);
+
+					if (empty($error) && $this->request->is_set_post('submit') && in_array($forum_id_user_input, $forum_ids))
 					{
-						$this->config->set('phpbbde_newsletter_archive_forum', $this->request->variable('phpbbde_newsletter_archive_forum', 0));
+						$this->config->set('phpbbde_newsletter_archive_forum', $forum_id_user_input);
 						trigger_error($this->language->lang('ACP_NEWSLETTER_SETTINGS_UPDATED') . adm_back_link($this->u_action));
+					}
+					elseif ($forum_id_user_input == 0)
+					{
+						$this->config->set('phpbbde_newsletter_archive_forum', $forum_id_user_input);
+						trigger_error($this->language->lang('ACP_NEWSLETTER_SETTINGS_ARCHIVE_DISABLED') . adm_back_link($this->u_action));
 					}
 					else
 					{
