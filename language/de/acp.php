@@ -22,6 +22,11 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
+	'ACP_NEWSLETTER_SETTINGS_EXPLAIN'			=> 'On this settings page you can define the forum-id for the archive forum and the newsletter credits footer.',
+
+	'ACP_NEWSLETTER_ARCHIVE_SETTINGS' 			=> 'Newsletter forum archive',
+	'ACP_NEWSLETTER_ARCHIVE_SETTINGS_EXPLAIN' 	=> 'You can post the newsletter parallely to the sending via email into a newsletter forum.',
+
 	'ACP_NEWSLETTER_ARCHIVE_FORUM_ID'			=> 'Newsletter Archiv-Forum',
 	'ACP_NEWSLETTER_ARCHIVE_FORUM_ID_EXPLAIN'	=> 'Definiere die Foren-ID, in die der Newsletter abgelegt werden soll. Die Eingabe von „0“ deaktiviert diese Funktion.',
 ));

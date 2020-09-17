@@ -24,8 +24,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-	const ID_NEWSLETTER = 72; // TODO: make ACP setting to change the forum
-
 	/** @var config */
 	protected $config;
 
@@ -224,7 +222,7 @@ class listener implements EventSubscriberInterface
 
 		$poll_data = array();
 		$post_data = array(
-			'forum_id'		=> self::ID_NEWSLETTER,
+			'forum_id'		=> $this->config['phpbbde_newsletter_archive_forum'],
 			'topic_id'		=> 0,
 			'icon_id'		=> false,
 
@@ -250,7 +248,11 @@ class listener implements EventSubscriberInterface
 			'force_approved_state'	=> true,
 		);
 
-		submit_post('post', $subject, $this->user->data['username'], POST_NORMAL, $poll_data, $post_data);
+		// Only post in a board if the forum_id is set and greater than 0
+		if ($post_data['forum_id'] > 0)
+		{
+			submit_post('post', $subject, $this->user->data['username'], POST_NORMAL, $poll_data, $post_data);
+		}
 
 		$event['generate_log_entry'] = false;
 		if (!empty($event['usernames']))
