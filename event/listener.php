@@ -24,8 +24,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-	const ID_NEWSLETTER = 72; // TODO: make ACP setting to change the forum
-
 	/** @var config */
 	protected $config;
 
@@ -155,6 +153,8 @@ class listener implements EventSubscriberInterface
 	 */
 	public function modify_acp_email_template($event)
 	{
+		$this->language->add_lang('common' , 'phpbbde/newsletter');
+
 		$event['template_data'] += array(
 			'S_SEND_NEWSLETTER'	=> $this->request->is_set_post('newsletter'),
 		);
@@ -194,6 +194,8 @@ class listener implements EventSubscriberInterface
 			return;
 		}
 
+		$this->language->add_lang('common' , 'phpbbde/newsletter');
+
 		$this->template->assign_vars(array(
 			'NEWSLETTER'	=> $this->user->data['user_allow_newsletter'],
 		));
@@ -207,8 +209,6 @@ class listener implements EventSubscriberInterface
 	 */
 	public function post_newsletter_archive($event)
 	{
-		$this->language->add_lang('common' , 'phpbbde/newsletter');
-
 		if (!$this->request->is_set_post('newsletter'))
 		{
 			return;
@@ -221,10 +221,10 @@ class listener implements EventSubscriberInterface
 		$bbcode_uid = $bbcode_bitfield = $flags = '';
 
 		generate_text_for_storage($message, $bbcode_uid, $bbcode_bitfield, $flags, true, true, true);
-
+		$forum_id = $this->config['phpbbde_newsletter_archive_forum'];
 		$poll_data = array();
 		$post_data = array(
-			'forum_id'		=> self::ID_NEWSLETTER,
+			'forum_id'		=> $forum_id,
 			'topic_id'		=> 0,
 			'icon_id'		=> false,
 
@@ -250,7 +250,11 @@ class listener implements EventSubscriberInterface
 			'force_approved_state'	=> true,
 		);
 
-		submit_post('post', $subject, $this->user->data['username'], POST_NORMAL, $poll_data, $post_data);
+		// Only post in a board if the forum_id is set and greater than 0
+		if ($post_data['forum_id'] > 0)
+		{
+			submit_post('post', $subject, $this->user->data['username'], POST_NORMAL, $poll_data, $post_data);
+		}
 
 		$event['generate_log_entry'] = false;
 		if (!empty($event['usernames']))

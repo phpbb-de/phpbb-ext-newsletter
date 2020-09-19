@@ -1,0 +1,27 @@
+{% include 'overall_header.html' %}
+
+<a id="maincontent"></a>
+
+<h1>{{ lang('ACP_NEWSLETTER_SETTINGS') }}</h1>
+
+<p>{{ lang('ACP_NEWSLETTER_SETTINGS_EXPLAIN') }}</p>
+
+<form id="acp_newsletter_settings" method="post" action="{{ U_ACTION }}">
+	<fieldset>
+		<legend>{{ lang('ACP_NEWSLETTER_ARCHIVE_SETTINGS')}}</legend>
+		<p>{{ lang('ACP_NEWSLETTER_ARCHIVE_SETTINGS_EXPLAIN')}}</p>
+
+		<dl>
+			<dt><label for="phpbbde_newsletter_archive_forum">{{ lang('ACP_NEWSLETTER_ARCHIVE_FORUM_ID')}}{{ lang('COLON') }}</label><br><span>{{ lang('ACP_NEWSLETTER_ARCHIVE_FORUM_ID_EXPLAIN')}}</span></dt>
+			<dd><input id="phpbbde_newsletter_archive_forum" type="number" min="0" max="9999" name="phpbbde_newsletter_archive_forum" value="{{ PHPBBDE_NEWSLETTER_ARCHIVE_FORUM_ID }}"></dd>
+		</dl>
+
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+</form>
+
+{% include 'overall_footer.html' %}

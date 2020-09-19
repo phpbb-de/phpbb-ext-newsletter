@@ -11,6 +11,12 @@
 			"email": "elsensee@phpbb.de",
 			"homepage": "https://www.phpbb.de",
 			"role": "Developer"
+		},
+		{
+			"name": "Christian Schnegelberger",
+			"email": "crizzo@phpbb.de",
+			"homepage": "https://www.phpbb.de",
+			"role": "Developer"
 		}
 	],
 	"require": {
