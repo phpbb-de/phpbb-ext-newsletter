@@ -7,7 +7,4 @@ Informationen zum Abbestellen des Newsletters finden Sie am Ende.
 -----------
 Sie erhalten diesen Newsletter, weil Sie sich auf phpBB.de registriert und im Profil die Option „Newsletter abonnieren“ aktiviert haben. Um den Newsletter abzubestellen, melde Sie sich einfach auf phpBB.de an und deaktiviere diese Option im persönlichen Bereich (sollten Sie Ihr Passwort vergessen haben, können Sie hier ein neues anfordern: {U_REMIND}).
 
-Verantwortlich für den Inhalt:
-phpBB Deutschland e. V., c/o Christian Schnegelberger, Sandweg 17, 70771 Leinfelden-Echterdingen
-Registergericht: Amtsgericht Stuttgart (VR 720663)
 {SIGNATURE}
