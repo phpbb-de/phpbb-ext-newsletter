@@ -18,6 +18,16 @@
 
 	</fieldset>
 
+	<fieldset>
+		<legend>{{ lang('ACP_NEWSLETTER_SIGNATURE_FS')}}</legend>
+		<p>{{ lang('ACP_NEWSLETTER_SIGNATURE_FS_EXPLAIN')}}</p>
+
+		<dl>
+			<dt><label for="phpbbde_newsletter_signature">{{ lang('ACP_NEWSLETTER_SIGNATURE_TA')}}{L_COLON}</label></dt>
+			<dd><textarea id="phpbbde_newsletter_signature" cols="40" rows="5" name="phpbbde_newsletter_signature_text">{{ ACP_NEWSLETTER_SIGNATURE_TEXT }}</textarea></dd>
+		</dl>
+	</fieldset>
+
 	<fieldset class="submit-buttons">
 		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
 		{{ S_FORM_TOKEN }}

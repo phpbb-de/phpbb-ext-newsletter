@@ -30,7 +30,11 @@ $lang = array_merge($lang, array(
 	'ACP_NEWSLETTER_ARCHIVE_FORUM_ID'			=> 'Newsletter archive forum',
 	'ACP_NEWSLETTER_ARCHIVE_FORUM_ID_EXPLAIN'	=> 'Define the forum-id, in which the newsletter should be posted. If you input ”0“ the function is disabled.',
 
-	'ACP_NEWSLETTER_SETTINGS_UPDATED'		=> 'Newsletter settings were updated.',
-	'ACP_NEWSLETTER_SETTINGS_NOT_UPDATED'	=> 'Newsletter settings were not updated. No valid forum id.',
-	'ACP_NEWSLETTER_SETTINGS_ARCHIVE_DISABLED'	=> 'Newsletter settings were updated. Archive forum will not be used.'
+	'ACP_NEWSLETTER_SETTINGS_UPDATED'		    => 'Newsletter settings were updated.',
+	'ACP_NEWSLETTER_SETTINGS_NOT_UPDATED'	    => 'Newsletter settings were not updated. No valid forum id.',
+	'ACP_NEWSLETTER_SETTINGS_ARCHIVE_DISABLED'	=> 'Newsletter settings were updated. Archive forum will not be used.',
+
+	'ACP_NEWSLETTER_SIGNATURE_FS'				=> 'Create a signature',
+	'ACP_NEWSLETTER_SIGNATURE_FS_EXPLAIN'		=> 'In this textarea a signature can be added, which will append on every newsletter you send. Leave empty to not use a signature.',
+	'ACP_NEWSLETTER_SIGNATURE_TA'				=> 'Signature',
 ));

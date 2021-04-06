@@ -3,6 +3,7 @@ services:
         class: phpbbde\newsletter\event\listener
         arguments:
             - '@config'
+            - '@config_text'
             - '@log'
             - '@language'
             - '@request'

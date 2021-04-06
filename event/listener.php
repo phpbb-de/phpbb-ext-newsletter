@@ -27,6 +27,9 @@ class listener implements EventSubscriberInterface
 	/** @var config */
 	protected $config;
 
+	/** @var \phpbb\config\db_text */
+	protected $config_text;
+
 	/** @var string */
 	protected $php_ext;
 
@@ -55,6 +58,7 @@ class listener implements EventSubscriberInterface
 	 * Constructor
 	 *
 	 * @param config				$config
+	 * @param \phpbb\config\db_text	$config_text
 	 * @param log_interface			$phpbb_log
 	 * @param \phpbb\language\language	$language
 	 * @param request_interface		$request
@@ -66,6 +70,7 @@ class listener implements EventSubscriberInterface
 	 */
 	public function __construct(
 		\phpbb\config\config $config,
+		\phpbb\config\db_text $config_text,
 		log_interface $phpbb_log,
 		\phpbb\language\language $language,
 		\phpbb\request\request $request,
@@ -76,6 +81,7 @@ class listener implements EventSubscriberInterface
 		$users_table)
 	{
 		$this->config = $config;
+		$this->config_text = $config_text;
 		$this->php_ext = $php_ext;
 		$this->phpbb_log = $phpbb_log;
 		$this->phpbb_root_path = $phpbb_root_path;
@@ -177,7 +183,7 @@ class listener implements EventSubscriberInterface
 
 		$event['template_data'] = array_merge($event['template_data'], [
 			'U_REMIND'		=> generate_board_url() . "/ucp.{$this->php_ext}?mode=sendpassword",
-			'U_IMPRINT'		=> generate_board_url(true) . "/go/impressum", // TODO: Make this changeable
+			'SIGNATURE'		=> $this->config_text->get('phpbbde_newsletter_signature_text'),
 		]);
 	}
 

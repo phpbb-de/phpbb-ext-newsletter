@@ -38,7 +38,8 @@ class v110 extends \phpbb\db\migration\migration
 				)),
 				// Add config values
 				array('config.add', array('phpbbde_newsletter_archive_forum', 0)),
-
+				// Add config_text value for signature
+				array('config_text.add', array('phpbbde_newsletter_signature_text', '')),
 				// Add permissions
 				array('permission.add', array('a_newsletter', true)),
 			);
