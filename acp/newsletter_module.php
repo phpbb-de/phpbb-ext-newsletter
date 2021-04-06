@@ -89,13 +89,17 @@ class newsletter_module
 					if (empty($error) && $this->request->is_set_post('submit') && in_array($forum_id_user_input, $forum_ids))
 					{
 						$this->config->set('phpbbde_newsletter_archive_forum', $forum_id_user_input);
+
 						$this->config_text->set('phpbbde_newsletter_signature_text', $signature_user_input);
 
 						trigger_error($this->language->lang('ACP_NEWSLETTER_SETTINGS_UPDATED') . adm_back_link($this->u_action));
 					}
-					elseif ($forum_id_user_input == 0)
+					else if ($forum_id_user_input == 0)
 					{
 						$this->config->set('phpbbde_newsletter_archive_forum', $forum_id_user_input);
+
+						$this->config_text->set('phpbbde_newsletter_signature_text', $signature_user_input);
+
 						trigger_error($this->language->lang('ACP_NEWSLETTER_SETTINGS_ARCHIVE_DISABLED') . adm_back_link($this->u_action));
 					}
 					else
