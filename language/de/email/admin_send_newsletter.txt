@@ -10,4 +10,4 @@ Du erhältst diesen Newsletter, weil du dich auf phpBB.de registriert und im Pro
 Verantwortlich für den Inhalt:
 phpBB Deutschland e. V., c/o Christian Schnegelberger, Sandweg 17, 70771 Leinfelden-Echterdingen
 Registergericht: Amtsgericht Stuttgart (VR 720663)
-{U_IMPRINT}
+{SIGNATURE}
