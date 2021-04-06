@@ -32,5 +32,9 @@ $lang = array_merge($lang, array(
 
 	'ACP_NEWSLETTER_SETTINGS_UPDATED'			=> 'Newsletter Einstellungen wurden aktualisiert.',
 	'ACP_NEWSLETTER_SETTINGS_NOT_UPDATED'		=> 'Newsletter Einstellungen wurden aktualisiert. Keine gültige Foren-ID.',
-	'ACP_NEWSLETTER_SETTINGS_ARCHIVE_DISABLED'	=> 'Newsletter Einstellungen wurden aktualisiert. Archiv-Forum wird nicht verwendet.'
+	'ACP_NEWSLETTER_SETTINGS_ARCHIVE_DISABLED'	=> 'Newsletter Einstellungen wurden aktualisiert. Archiv-Forum wird nicht verwendet.',
+
+	'ACP_NEWSLETTER_SIGNATURE_FS'				=> 'Erstellen Sie eine Signatur',
+	'ACP_NEWSLETTER_SIGNATURE_FS_EXPLAIN'		=> 'In diesem Eingabefeld können Sie eine Signatur eintragen, die jedem Newsletter den Sie versenden angehängt wird. Lassen Sie das Feld leer, um keine Signatur zu verwenden.',
+	'ACP_NEWSLETTER_SIGNATURE_TA'				=> 'Signatur',
 ));
