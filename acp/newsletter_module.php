@@ -35,10 +35,11 @@ class newsletter_module
 	public function main($id, $mode)
 	{
 
-		global $config, $config_text, $template, $request, $phpbb_container, $db, $user;
+		global $config, $template, $request, $phpbb_container, $db, $user;
 
 		/** @var \phpbb\language\language $language */
 		$language = $phpbb_container->get('language');
+		$config_text = $phpbb_container->get('config_text');
 
 		$this->config = $config;
 		$this->config_text = $config_text;
@@ -79,16 +80,17 @@ class newsletter_module
 						$error = $this->language->lang('FORM_INVALID');
 					}
 
-                    // Read forum ID input
+					// Read forum ID input
 					$forum_id_user_input = (int) $this->request->variable('phpbbde_newsletter_archive_forum', 0);
 
 					// Read signature input
-                    $signature_user_input = $this->request->variable('phpbbde_newsletter_signature_text', '', true);
+					$signature_user_input = (string) $this->request->variable('phpbbde_newsletter_signature_text', '', true);
 
 					if (empty($error) && $this->request->is_set_post('submit') && in_array($forum_id_user_input, $forum_ids))
 					{
 						$this->config->set('phpbbde_newsletter_archive_forum', $forum_id_user_input);
-						$this->config_text->set('phpbbde_signature_content', $signature_user_input);
+						$this->config_text->set('phpbbde_newsletter_signature_text', $signature_user_input);
+
 						trigger_error($this->language->lang('ACP_NEWSLETTER_SETTINGS_UPDATED') . adm_back_link($this->u_action));
 					}
 					elseif ($forum_id_user_input == 0)
@@ -107,6 +109,7 @@ class newsletter_module
 					'U_ACTION'								=> $this->u_action,
 
 					'PHPBBDE_NEWSLETTER_ARCHIVE_FORUM_ID'	=> $this->config['phpbbde_newsletter_archive_forum'],
+					'ACP_NEWSLETTER_SIGNATURE_TEXT'			=> $this->config_text->get('phpbbde_newsletter_signature_text'),
 				));
 			break;
 		}
