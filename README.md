@@ -23,7 +23,7 @@ URL: https://www.phpbb.de
 
 We use automated unit tests to prevent regressions. Check out our travis build below:
 
-master: [![Build Status](https://travis-ci.org/phpbb-de/phpbb-ext-newsletter.png?branch=master)](http://travis-ci.org/phpbb-de/phpbb-ext-newsletter)
+master: [![Build Status](https://github.com/phpbb-de/phpbb-ext-newsletter/workflows/Tests/badge.svg)](https://github.com/phpbb-de/phpbb-ext-newsletter/actions)
 
 ## License
 
