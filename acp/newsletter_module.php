@@ -86,7 +86,7 @@ class newsletter_module
 					// Read signature input
 					$signature_user_input = (string) $this->request->variable('phpbbde_newsletter_signature_text', '', true);
 
-					if (empty($error) && $this->request->is_set_post('submit') && in_array($forum_id_user_input, $forum_ids))
+					if (empty($error) && in_array($forum_id_user_input, $forum_ids))
 					{
 						$this->config->set('phpbbde_newsletter_archive_forum', $forum_id_user_input);
 
@@ -94,7 +94,7 @@ class newsletter_module
 
 						trigger_error($this->language->lang('ACP_NEWSLETTER_SETTINGS_UPDATED') . adm_back_link($this->u_action));
 					}
-					else if ($forum_id_user_input == 0)
+					else if (empty($error) && $forum_id_user_input == 0)
 					{
 						$this->config->set('phpbbde_newsletter_archive_forum', $forum_id_user_input);
 
