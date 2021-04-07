@@ -109,7 +109,6 @@ class newsletter_module
 				}
 
 				$this->template->assign_vars(array(
-					'ERRORS'								=> $error,
 					'U_ACTION'								=> $this->u_action,
 
 					'PHPBBDE_NEWSLETTER_ARCHIVE_FORUM_ID'	=> $this->config['phpbbde_newsletter_archive_forum'],
