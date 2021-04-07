@@ -57,21 +57,21 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Constructor
 	 *
-	 * @param config				$config
-	 * @param \phpbb\config\db_text	$config_text
-	 * @param log_interface			$phpbb_log
-	 * @param \phpbb\language\language	$language
-	 * @param request_interface		$request
-	 * @param template				$template
-	 * @param user					$user
-	 * @param string				$php_ext
-	 * @param string				$phpbb_root_path
-	 * @param string				$users_table
+	 * @param \phpbb\config\config				$config
+	 * @param \phpbb\config\db_text				$config_text
+	 * @param \phpbb\log\log_interface			$phpbb_log
+	 * @param \phpbb\language\language			$language
+	 * @param \phpbb\request\request			$request
+	 * @param \phpbb\template\template 			$template
+	 * @param \phpbb\user						$user				User object
+	 * @param string							$php_ext			PHP extension
+	 * @param string							$phpbb_root_path	phpBB root path
+	 * @param string							$users_table
 	 */
 	public function __construct(
 		\phpbb\config\config $config,
 		\phpbb\config\db_text $config_text,
-		log_interface $phpbb_log,
+		\phpbb\log\log_interface $phpbb_log,
 		\phpbb\language\language $language,
 		\phpbb\request\request $request,
 		\phpbb\template\template $template,
