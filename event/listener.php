@@ -12,11 +12,6 @@ namespace phpbbde\newsletter\event;
 /**
 * @ignore
 */
-use phpbb\config\config;
-use phpbb\log\log_interface;
-use phpbb\request\request_interface;
-use phpbb\template\template;
-use phpbb\user;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -24,31 +19,31 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-	/** @var config */
+	/** @var \phpbb\config\config */
 	protected $config;
 
-	/** @var db_text */
+	/** @var \phpbb\config\db_text */
 	protected $config_text;
 
 	/** @var string */
 	protected $php_ext;
 
-	/** @var log_interface */
+	/** @var \phpbb\log\log_interface; */
 	protected $phpbb_log;
 
 	/** @var string */
 	protected $phpbb_root_path;
 
-	/* @var language */
+	/** @var \phpbb\language\language */
 	protected $language;
 
-	/** @var request_interface */
+	/** @var \phpbb\request\request */
 	protected $request;
 
-	/** @var template */
+	/** @var \phpbb\template\template */
 	protected $template;
 
-	/** @var user */
+	/** @var \phpbb\user */
 	protected $user;
 
 	/** @var string */
@@ -57,25 +52,25 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Constructor
 	 *
-	 * @param config			$config				Config object
-	 * @param db_text			$config_text		Config text object
-	 * @param log_interface		$phpbb_log			phpBB log system
-	 * @param language			$language			Language object
-	 * @param request			$request			Request object
-	 * @param template 			$template			Template object
-	 * @param user				$user				User object
-	 * @param string			$php_ext			PHP extension
-	 * @param string			$phpbb_root_path	phpBB root path
-	 * @param string			$users_table
+	 * @param \phpbb\config\config			$config				Config object
+	 * @param \phpbb\config\db_text			$config_text		Config text object
+	 * @param \phpbb\log\log_interface					$phpbb_log			phpBB log system
+	 * @param \phpbb\language\language		$language			Language object
+	 * @param \phpbb\request\request		$request			Request object
+	 * @param \phpbb\template\template 		$template			Template object
+	 * @param \phpbb\user     				$user				User object
+	 * @param string						$php_ext			PHP extension
+	 * @param string						$phpbb_root_path	phpBB root path
+	 * @param string						$users_table
 	 */
 	public function __construct(
-		config $config,
-		db_text $config_text,
-		log_interface $phpbb_log,
-		language $language,
-		request $request,
-		template $template,
-		user $user,
+		\phpbb\config\config $config,
+		\phpbb\config\db_text $config_text,
+		\phpbb\log\log_interface $phpbb_log,
+		\phpbb\language\language $language,
+		\phpbb\request\request $request,
+		\phpbb\template\template $template,
+		\phpbb\user $user,
 		$php_ext,
 		$phpbb_root_path,
 		$users_table)
