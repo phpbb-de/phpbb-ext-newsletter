@@ -293,7 +293,7 @@ class listener implements EventSubscriberInterface
 			'user_allow_newsletter'		=> $this->request->variable('newsletter', (bool) $this->user->data['user_allow_newsletter']),
 		);
 	}
-	
+
 	public function acp_users_newsletter_settings_get($event)
 	{
 		$data = $event['data'];
