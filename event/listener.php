@@ -103,9 +103,12 @@ class listener implements EventSubscriberInterface
 				array('modify_email_template', 0),
 				array('post_newsletter_archive', 50), // Workaround for event since there is no _after event
 			),
-			'core.ucp_prefs_modify_common'			=> 'modify_ucp_prefs',
-			'core.ucp_prefs_personal_update_data'	=> 'update_ucp_newsletter',
-			'core.permissions'						=> 'add_permissions',
+			'core.ucp_prefs_modify_common'				=> 'modify_ucp_prefs',
+			'core.ucp_prefs_personal_update_data'		=> 'update_ucp_newsletter',
+			'core.permissions'							=> 'add_permissions',
+			'core.acp_users_prefs_modify_data'			=> 'acp_users_newsletter_settings_get',
+			'core.acp_users_prefs_modify_template_data'	=> 'acp_profile_newsletter_template',
+			'core.acp_users_prefs_modify_sql'			=> 'acp_profile_newsletter_set',
 		);
 	}
 
@@ -289,5 +292,50 @@ class listener implements EventSubscriberInterface
 		$event['sql_ary'] += array(
 			'user_allow_newsletter'		=> $this->request->variable('newsletter', (bool) $this->user->data['user_allow_newsletter']),
 		);
+	}
+
+	public function acp_users_newsletter_settings_get($event)
+	{
+		$data = $event['data'];
+		$user_row = $event['user_row'];
+		$data = array_merge($data, array(
+			'user_allow_newsletter'		=> $this->request->variable('newsletter', (bool) $user_row['user_allow_newsletter']),
+		));
+		$event['data'] = $data;
+	}
+
+	/**
+	 * Assign template data in the ACP
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
+	public function acp_profile_newsletter_template($event)
+	{
+		$this->user->add_lang_ext('phpbbde/newsletter', 'common');
+		$data = $event['data'];
+		$user_prefs_data = $event['user_prefs_data'];
+		$user_prefs_data = array_merge($user_prefs_data, array(
+			'NEWSLETTER'				=> $data['user_allow_newsletter'],
+		));
+		$event['user_prefs_data'] = $user_prefs_data;
+	}
+
+	/**
+	 * Add user options' state into the sql_array
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
+	public function acp_profile_newsletter_set($event)
+	{
+		$data = $event['data'];
+		$sql_ary = $event['sql_ary'];
+		$sql_ary = array_merge($sql_ary, array(
+			'user_allow_newsletter'		=> $this->request->variable('newsletter', (bool) $event['data']['user_allow_newsletter']),
+		));
+		$event['sql_ary'] = $sql_ary;
 	}
 }
